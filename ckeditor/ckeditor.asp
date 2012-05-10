@@ -788,7 +788,7 @@ class JSON
 	''					</code>
 	''					Example of how to generate a JSON representation of the asp request object and access the <em>HTTP_HOST</em> server variable in JavaScript:
 	''					<code>
-	''					<script>alert(<%= (new JSON)(empty, request, false) % >.servervariables.HTTP_HOST);</script>
+	''					<script type="text/javascript">alert(<%= (new JSON)(empty, request, false) % >.servervariables.HTTP_HOST);</script>
 	''					</code>
 	'' @PARAM:			nested [bool]: indicates if the name value pair is already nested within another? if yes then the <em>{}</em> are left out.
 	'' @RETURN:			[string] returns a JSON representation of the given name value pair

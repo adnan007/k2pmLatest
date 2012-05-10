@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <title>ViewTeam</title>
 
 <link rel="shortcut icon" href="images/favicon.ico" type="image/png" />
 <meta content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" name="viewport" />
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/skeleton.css" rel="stylesheet" type="text/css" />
    <!-- <style type="text/css">
     .dataTables_filter {display: none;}
     </style>  -->
@@ -89,7 +89,7 @@
 		dataType: "json",
 		
 		success: function (response, status) {	  
-		alert(response.d);
+		//alert(response.d);
 		$("#LabelTeamName").text(response.d);
 		},
 		failure: function (msg) {
@@ -113,7 +113,7 @@
 		dataType: "json",
 		
 		success: function (response, status) {	 
-		alert(response.d); 
+		//alert(response.d); 
 		$("#teamImage").html(response.d);
 		},
 		failure: function (msg) {
@@ -170,7 +170,7 @@ function RenderNextEvent() {
 }	
 
 </script>
-<script>
+<script type="text/javascript">
 
 function GetRightAdver() {
 	
@@ -196,7 +196,7 @@ success: function (response, status) {
 	);
 }	
 </script>
-<script>
+<script type="text/javascript">
 
 function GetLeaderBoard() {
 	
@@ -222,7 +222,7 @@ success: function (response, status) {
 }	
 </script>
 
-<script>
+<script type="text/javascript">
 function GetTeamInfo() {
 	 var querystring= getUrlVars()["Id"];
 	    Paramdata={"teamId":querystring}
@@ -389,7 +389,7 @@ success: function (response, status) {
               <a href="static/SportsICandy.html" title="SportsiCandy" target="_self"><i>SportsiCandy</i></a>
               <a href="static/TechServices.html" title="Tech & Business Services" target="_self">Tech & Business Services</a>
               <a href= "static/Write4Kids2ProSports.html"title="Write4K2PS" target="_self">Write4K2PS</a>
-              <a href="static/Future Features.html" title="Future Features" target="_self">Future Features</a>
+              <a href="static/FutureFeatures.html" title="Future Features" target="_self">Future Features</a>
           </footer>
           <div class="dots clear"></div>
           <!-- Social Icon -->
