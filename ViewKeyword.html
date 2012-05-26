@@ -5,18 +5,28 @@
     <title>ViewKeyword</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/png" />
     <meta content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"
-        name="viewport"  />
-    <link href="css/style.css" rel="stylesheet" type="text/css"  />
-<!--    <link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
--->  <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/jquery.Storage.js"></script>   
+        name="viewport" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
+    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery.Storage.js"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
-	 <style type="text/css">
-    .dataTables_filter {display: none;}
-    </style>  
-
+    <style type="text/css">
+        .dataTables_filter
+        {
+            display: none;
+        }
+    </style>
     <script type="text/javascript">
-        
+             $(document).ready(function () {
+            var online = navigator.onLine;    // Detecting the internet connection
+            if (online) {
+                // do your stuff
+            } else {
+                alert('You\'re Offline now...');
+                return false;
+            }
+        });   
             function getUrlVars() {
                 var vars = [], hash;
                 var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -37,7 +47,8 @@
                            this.UserName,
                            this.DateTime,
 						   this.Text,
-						   this.ArticleId
+                          "<a href=ViewArticle.h?Id="+ArticleId+">View Full Article</a>"
+						   
 						   
 
                         ]);
@@ -80,6 +91,7 @@
             });
 			
 		var querystring= getUrlVars()["KeywordName"];
+        querystring=querystring.replace("%20"," ");
 		Paramdata={"sportAccount":querystring}
 	   $.ajax({
                 url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/SporProfileKeywords',
@@ -102,6 +114,7 @@
 
                 if (User != null) {
                     queryString = getUrlVars()["SportName"];
+                      queryString=  queryString.replace("%20"," ");
                     var data = { "sportName": queryString };
 
                     $.ajax(
@@ -114,7 +127,7 @@
 		    dataType: "json",
 
 		    success: function (response, status) {
-              //alert(response.d);
+              //
 			   $("#ASPxLabelSportHeader").text(response.d);	
 		        
 		    },
@@ -134,6 +147,7 @@
                 if (User != null) {
 			function GetKeywordDefinition() {
                 queryString = getUrlVars()["KeywordName"];
+                 queryString=queryString.replace("%20"," ");
                 var data = { "keyword": queryString };
 
                 $.ajax({
@@ -143,8 +157,8 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-					alert(response.d);
-					$("#LiteralKeywordDefinition").html( "<h2>" + getUrlVars()["KeywordName"] + "</h2>" +response.d);  
+					
+					$("#LiteralKeywordDefinition").html( "<h2>" + getUrlVars()["KeywordName"].toString() + "</h2>" +response.d);  
                     },
                     failure: function (errMsg) {
                         $('#errorMessage').text(errMsg); //errorMessage is id of the div
@@ -162,6 +176,7 @@
             function GetSportHierarchyKeyword() {
 
                 queryString = getUrlVars()["KeywordName"];
+                queryString=queryString.replace("%20"," ");
                 var data = { "_KeywordName": queryString };
 
                 $.ajax({
@@ -183,6 +198,7 @@
             ///GetRecentArticelsSection()///
             function GetRecentArticelsSection() {
                 queryString = getUrlVars()["SportName"];
+                  queryString=queryString.replace("%20"," ");
                 var data = { "sportName": queryString };
 
                 $.ajax({
@@ -192,7 +208,7 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-					//alert(response.d);
+					//
                        $("#divFeaturedArticles").html(response.d);  
                     },
                     failure: function (errMsg) {
@@ -254,26 +270,23 @@ success: function (response, status) {
  
     </script>
 </head>
-<body onload="GetLeaderBoard(),GetKeywordDefinition(),GetSportHierarchyKeyword()" >
-    <div id="wraper" class="" >
-       
+<body onload="GetLeaderBoard(),GetKeywordDefinition(),GetSportHierarchyKeyword()">
+    <div id="wraper" class="">
         <header>
           <nav>
-              <ul id="" class="clearfix">
+              <ul class="clearfix">
                   <li>
-                      <a href="userprofile.html" title="home" target="_self">Home</a>
+                      <a href="SportsDefinitions.html" target="_self" title="Sports" >Sports</a>
                   </li>
                   <li>
-                      <a href="static/mediaKit.html" title="mediakit" target="_self">Media Kit</a>
+                      <a href="createArticle.html" title="Articles" target="_self">Articles</a>
                   </li>
                   <li>
-                      <a class="ui-link" href="static/Faq.html" title="faq" target="_self">FAQ</a>
+                      <a class="ui-link" href="CreateTeam.html" title="Teams" target="_self">Teams</a>
                   </li>
+                  
                   <li>
-                      <a class="ui-link" href="#.html" title="feedback" target="#">Feedback</a>
-                  </li>
-                  <li>
-                      <a class="ui-link" href="static/ContactUs.html" title="contactus" target="_self">Contact Us</a>
+                      <a class="ui-link" href="CreateFanClub.html" title="Fanclubs" target="_self">Fanclubs</a>
                   </li>
               </ul>
           </nav>
@@ -283,67 +296,73 @@ success: function (response, status) {
         <div class="contetns clearfix">
             <!-- left area starts-->
             <div class="contentLeft fLeft">
-                   <div class="innerwrapper">  
-                    <div id="divLeaderBoard"></div>              
-                    <div ID="LiteralKeywordDefinition" ></div>
-                     <div id="divLiteralSportHierarchy"></div>                 
-                    <br />               
-                    <div id="errormessage"></div>
-                    <br />
+                <div class="innerwrapper">
+                    <div id="divLeaderBoard">
                     </div>
-                   <div>
-                 <table id="ASPxGridViewSubSport" class="dataTables_filter"  >
-                  <thead>
-                        <tr>
-                            <th>
-                               Written By:
-                            </th>
-                            <th>
-                              Date
-                            </th>
-                            <th>
-                               Text
-                            </th>
-                            <th>
-                           <a href="ViewArticle.aspx?Id="+ ArticleID >View Full Article</a>
-                            </th>
-                        </tr>
-                   </thead>
-                 </table>
-                 </div>
-                    <br />
-                    <div>
-                    <h2 class="ownLine">Member Sport Profiles Identified by this Keyword</h2>
+                    <div id="LiteralKeywordDefinition">
                     </div>
-                    <br />                               
-                    <div>
-                 <table id="ASPxGridViewSportProfiles"  class="dataTables_filter" >
-                  <thead>
-                        <tr>
-                            <th>
-                               userName
-                            </th>
-                            <th>
-                              picture
-                            </th>
-                            <th>
-                               Text
-                            </th>
-                            <th>userName</th>
-                            <th>
-                           <a href="ViewArticle.aspx?Id="+ ArticleID >View Full Article</a>
-                            </th>
-                        </tr>
-                   </thead>
-                 </table>
+                    <div id="divLiteralSportHierarchy">
+                    </div>
                     <br />
-                 </div>
-        </div>
+                    <div id="errormessage">
+                    </div>
+                    <br />
+                </div>
+                <div>
+                    <table id="ASPxGridViewSubSport" class="dataTables_filter">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Written By:
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Text
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <br />
+                <div>
+                    <h2 class="ownLine">
+                        Member Sport Profiles Identified by this Keyword</h2>
+                </div>
+                <br />
+                <div>
+                    <table id="ASPxGridViewSportProfiles" class="dataTables_filter">
+                        <thead>
+                            <tr>
+                                <th>
+                                    userName
+                                </th>
+                                <th>
+                                    picture
+                                </th>
+                                <th>
+                                    Text
+                                </th>
+                                <th>
+                                    userName
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <br />
+                </div>
+            </div>
             <!-- advertisement area starts-->
             <div class="contentRight fRight">
-                fdfplfpogjj</div>
+                </div>
             <!-- advertisement area ends-->
-            <div class="clearfix"></div>
+            <div class="clearfix">
+            </div>
         </div>
         <div class="shareIcons">
             <h1>
@@ -366,15 +385,15 @@ success: function (response, status) {
         <!-- footer starts -->
         <div id="footerWrap">
             <footer>
-              <a href="userprofile.html" title="home" target="_self">Home</a>
+              <a href="index.html" title="home" target="_self">Home</a>
               <a href="static/Affiliates.html" title="Affiliates" target="_self">Affiliates</a>
               <a href= "static/CollegiateRecruiting.html"title="Collegiate Recruiting" target="_self">Collegiate Recruiting</a>
-              <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
-              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>
+           <!--   <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
+              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>-->
               <a href="static/Education.html" title="Education & Sports" target="_self">Education & Sports</a>
               <a href= "static/K2psZOO.html"title="K2psZOO" target="_self">K2psZOO</a>
-              <a href= "static/NewsAndEvents..html"title="News & Events" target="_self">News & Events</a>
-              <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>
+              <a href= "static/NewsAndEvents.html"title="News & Events" target="_self">News & Events</a>
+           <!--   <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>-->
               <a href="static/SportsICandy.html" title="SportsiCandy" target="_self"><i>SportsiCandy</i></a>
               <a href="static/TechServices.html" title="Tech & Business Services" target="_self">Tech & Business Services</a>
               <a href= "static/Write4Kids2ProSports.html"title="Write4K2PS" target="_self">Write4K2PS</a>

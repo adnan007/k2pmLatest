@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Fan Club</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/png" />
@@ -9,14 +10,24 @@
     <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="js/jquery.Storage.js"></script>
     <script type="text/javascript" src="js/json2.js"></script>
-    <script type="text/javascript" src="uploadify/swfobject.js"></script>
-    <script type="text/javascript" src="uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-    <script type="text/javascript" src="uploadify/jquery.uploadify.v2.1.4.js" s></script>
     <script type="text/javascript">
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            var online = navigator.onLine;    // Detecting the internet connection
+            if (online) {
+                // do your stuff
+            } else {
+                alert('You\'re Offline now...');
+                return false;
+            }
             var UserName = $.Storage.get("UserName");
+            if (UserName == null)
+            { window.location.href = "login.html"; }
+            else if (UserName == "guest") {
+              $('#btnSubmit').attr('disabled', 'disabled');
+            
+            }
             var GenderId, SportName, MajorSport;
 
 
@@ -164,29 +175,30 @@
 
     </script>
     <script type="text/javascript">
-        {        var _clubId;
-           
-		    function Create() {
 
-                var fanclub = {};
+        var _clubId;
 
-                fanclub.id = $("#DropDownListSportName").val() + GetDate() + $("#TextBoxFanClubName").val();
-                _clubId = fanclub.id;
-               $('#fileUpload').uploadifyUpload();
-                fanclub.name = $("#TextBoxFanClubName").val();
-                fanclub.sport = $("#DropDownListSportName").val();
-                fanclub.category = $("#DropDownListSportCategory").val();
-                fanclub.image = "UserData/FanClubPictures/'" + fanclub.id + "'_FanClubPic.jpg";
-                fanclub.subject = $("#TextBoxTopic").val();
-                fanclub.description = $("#TextBoxDescription").val();
-                if ($("#DropDownListGenderIDe").val() != '--------')
-                { fanclub.genderID = $("#DropDownListGenderIDe").val(); }
-                else { fanclub.genderID = ''; }
-                fanclub.creatorUserName = $.Storage.get("UserName");
+        function Create() {
 
-                if ($('#DropDownListSportName').val() != '0' && $('#DropDownListSportCategory').val() != '0' && $('#TextBoxTopic').val() != '' && $('#TextBoxFanClubName').val() != '' && $.Storage.get("UserName") != null) {
+            var fanclub = {};
 
-                    $.ajax(
+            fanclub.id = $("#DropDownListSportName").val() + GetDate() + $("#TextBoxFanClubName").val();
+            _clubId = fanclub.id;
+
+            fanclub.name = $("#TextBoxFanClubName").val();
+            fanclub.sport = $("#DropDownListSportName").val();
+            fanclub.category = $("#DropDownListSportCategory").val();
+            fanclub.image = "UserData/FanClubPictures/'" + fanclub.id + "'_FanClubPic.jpg";
+            fanclub.subject = $("#TextBoxTopic").val();
+            fanclub.description = $("#TextBoxDescription").val();
+            if ($("#DropDownListGenderIDe").val() != '--------')
+            { fanclub.genderID = $("#DropDownListGenderIDe").val(); }
+            else { fanclub.genderID = ''; }
+            fanclub.creatorUserName = $.Storage.get("UserName");
+
+            if ($('#DropDownListSportName').val() != '0' && $('#DropDownListSportCategory').val() != '0' && $('#TextBoxTopic').val() != '' && $('#TextBoxFanClubName').val() != '' && $.Storage.get("UserName") != null) {
+
+                $.ajax(
 {
     type: "POST",
     url: "http://2bvision.com/kids2promobile/DataAccessService.asmx/CreateFanClub",
@@ -196,51 +208,53 @@
     processData: false,
 
     success: function (response, status) {
-		alert(response.d);
-        var RedirectUrl="ViewFanClub.html?Id=" +response.d+"";
-		window.location.href=RedirectUrl;
+        //
+        var RedirectUrl = "ViewFanClub.html?Id=" + response.d;
+        window.location.href = RedirectUrl;
     },
     failure: function (msg) {
         alert(msg);
     }
-			});
-                }
-                else { alert('Please enter all required fields'); }
-
+});
             }
+            else { alert('Please enter all required fields'); }
 
+        }
 
-            
-            var id = 10;
-       		     // $(document).ready(function () {           
-//                $('#file_upload').uploadify({
-//                    'uploader': 'uploadify/uploadify.swf',
-//                    'script': '../UploadFiles.ashx',
-//                    'cancelImg': 'uploadify/cancel.png',
-//                     'auto': true,
-//                   'fileDesc': 'Image Files',
-//                    'fileExt': '*.jpg;*.png;*.gif;*.bmp;*.jpeg',
-//                    'queueSizeLimit': 90,
-//                    'sizeLimit': 4000000,
-//                    'buttonText': 'Choose Images',
-//                    'folder': "UserData/FanClubPictures/'" + _clubId + "' _FanClubPic.jpg",
-//                    'onAllComplete': function (event, queueID, fileObj, response, data) {
-//                        alert('asd');
-//                    }
-//                });
-          //  }
-        
-           )}
-		
+        function GetRightAdver() {
+
+            $.ajax(
+{
+    type: "POST",
+    url: "http://2bvision.com/kids2promobile/AdvertisementManagerService.asmx/GetRightAdvertisingColumn",
+    data: "{}",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (response, status) {
+
+        $.Storage.get("UserName");
+        var asd = $("#divRightAdds");
+        $("#divRightAdds").html(response.d);
+
+    },
+    failure: function (msg) {
+        alert(msg);
+    }
+}
+	);
+        }
+
+        	
     </script>
- 
-
     <style type="text/css">
-    
-        .innnout{ display:block;}
+        .innnout
+        {
+            display: block;
+        }
     </style>
 </head>
-<body>
+<body onload="GetRightAdver()">
     <div>
         <div id="wraper">
             <header>
@@ -250,16 +264,14 @@
                       <a href="SportsDefinitions.html" target="_self" title="Sports" >Sports</a>
                   </li>
                   <li>
-                      <a href="createArticle.html" title="mediakit" target="_self">Articles</a>
+                      <a href="createArticle.html" title="Articles" target="_self">Articles</a>
                   </li>
                   <li>
-                      <a class="ui-link" href="CreateTeam.html" title="faq" target="_self">Teams</a>
+                      <a class="ui-link" href="CreateTeam.html" title="Teams" target="_self">Teams</a>
                   </li>
+                  
                   <li>
-                      <a class="ui-link" href="#.html" title="feedback" target="_self">Messages</a>
-                  </li>
-                  <li>
-                      <a class="ui-link" href="#.html" title="contactus" target="_self">Fanclubs</a>
+                      <a class="ui-link" href="CreateFanClub.html" title="Fanclubs" target="_self">Fanclubs</a>
                   </li>
               </ul>
           </nav>
@@ -274,8 +286,6 @@
                         <!-- input -->
                         <div class="clear">
                             <div class="note2">
-                               
-
                                 <div class="form">
                                     <h4>
                                         <a href="FanClubSearch.html" title="#">Search for Existing Fan Clubs</a></h4>
@@ -330,25 +340,22 @@
                                             <textarea id="TextBoxDescription" rows="10" cols="30" tabindex="1" name="TextBoxDescription">                         	
                                              </textarea>
                                         </div>
-                                        <div >
-                                            <h5>
+                                        <div>
+                                         <!--   <h5>
                                                 Fanclub Image</h5>
                                             <div>
-                                                <input id="file_upload" type="file" name="file_upload"  />
-                                               
+                                                <input id="file_upload" type="file" name="file_upload" />
                                             </div>
-                                            <!--
-                                            <input type="file"  name="fileUpload" />
-                                            <a href="javascript:$('#fileUpload').uploadifyUpload();">Upload Files</a>-->
+                                         
                                             <br />
-                                            <br />
-                                            <input type="button" onclick="Create()" value="Create" />
+                                         -->   <br />
+                                            <input type="button" id="btnSubmit" name="btnSubmit" onclick="Create()" value="Create" />
                                             <br />
                                         </div>
-                                        <div class="sportsTab">
+                                        <!-- <div class="sportsTab">
                                             <input type="button" name="#" value="Invite to Friends" />
                                             <input type="button" name="#" value="Impoart Contacts" />
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -356,23 +363,23 @@
                     </div>
                 </div>
                 <!-- left area ends-->
-                <div class="contentRight fRight">
-                    fdfplfpogjj</div>
+                <div id="divRightAdds" class="contentRight fRight">
+                </div>
                 <!-- advertisement area ends-->
             </div>
             <!-- container ends-->
             <!-- footer starts -->
             <div id="footerWrap">
                 <footer>
-              <a href="userprofile.html" title="home" target="_self">Home</a>
+              <a href="index.html" title="home" target="_self">Home</a>
               <a href="static/Affiliates.html" title="Affiliates" target="_self">Affiliates</a>
               <a href= "static/CollegiateRecruiting.html"title="Collegiate Recruiting" target="_self">Collegiate Recruiting</a>
-              <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
-              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>
+           <!--   <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
+              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>-->
               <a href="static/Education.html" title="Education & Sports" target="_self">Education & Sports</a>
               <a href= "static/K2psZOO.html"title="K2psZOO" target="_self">K2psZOO</a>
-              <a href= "static/NewsAndEvents..html"title="News & Events" target="_self">News & Events</a>
-              <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>
+              <a href= "static/NewsAndEvents.html"title="News & Events" target="_self">News & Events</a>
+           <!--   <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>-->
               <a href="static/SportsICandy.html" title="SportsiCandy" target="_self"><i>SportsiCandy</i></a>
               <a href="static/TechServices.html" title="Tech & Business Services" target="_self">Tech & Business Services</a>
               <a href= "static/Write4Kids2ProSports.html"title="Write4K2PS" target="_self">Write4K2PS</a>

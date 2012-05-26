@@ -29,7 +29,7 @@ h4 { font-size:14px; margin:10px 0 5px 0; color:#000000; }
 /* ------- end --------- */
 
 /* containers */
-#wraper { padding:0 15px; min-width:1000px; }
+#wraper {  min-width:1000px; }
 #contents { clear:both; margin-top:20px; border:1px solid #ccc; padding:15px; }
 #header { height:120px; }
 /* ------- end --------- */
@@ -105,7 +105,7 @@ table.gridData tr.even { background:#f0f0f0; border-top:1px solid #dddddd;}
 
 /* footer */
 
-#footerWrap { margin-top:20px; border-top:1px solid #fff; background:#dcdcdc; }
+#footerWrap {  }
 .footer { float:left; width:650px; }
 .footer ul { }
 .footer ul li { float:left; height:30px; line-height:30px; font-size:11px; font-weight:bold; margin:0 5px; }

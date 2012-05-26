@@ -12,7 +12,15 @@
     <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/jquery.Storage.js"></script>
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            var online = navigator.onLine;    // Detecting the internet connection
+            if (online) {
+                // do your stuff
+            } else {
+                alert('You\'re Offline now...');
+                return false;
+            }
+        });
         function getUrlVars() {
             var vars = [], hash;
             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -24,12 +32,13 @@
             return vars;
 
         }
-     
 
-            queryString = getUrlVars()["SportName"];
-            var data = { "SportName": queryString };
-            var items = [];
-            $.ajax(
+
+        queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+        queryString = queryString.replace("%20", " ");
+        var data = { "SportName": queryString };
+        var items = [];
+        $.ajax(
 			{
 			    type: "POST",
 			    url: "http://2bvision.com/kids2promobile/ViewSubSportKewords.asmx/GetArticelBlog",
@@ -38,27 +47,28 @@
 			    dataType: "json",
 
 			    success: function (response, status) {
-			      
-			        var Kewords={};
+
+			        var Kewords = {};
 			        Kewords = response.d;
 			        for (i = 0; i < Kewords.length; i++) {
-$('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?KeywordName='+Kewords[i].keyword+ '">' + Kewords[i].keyword + '</a></li>');
-             
+			            $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?KeywordName=' + Kewords[i].keyword + '">' + Kewords[i].keyword + '</a></li>');
+
 			        }
-					
+
 			    },
 			    failure: function (msg) {
 			        alert(msg);
 			    }
 			});
 
-       
+
 
         function GetHomePageHeading() {
             var User = $.Storage.get("UserName");
 
             if (User != null) {
-                queryString = getUrlVars()["SportName"];
+                queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+                queryString = queryString.replace("%20", " ");
                 var data = { "sportName": queryString };
 
                 $.ajax(
@@ -71,7 +81,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
 			    dataType: "json",
 
 			    success: function (response, status) {
-			        alert(response.d);
+			        //
 			        $("#ASPxLabelSportHeader").text(response.d);
 
 			    },
@@ -87,7 +97,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         }
         /// ///
         function GetRecentArticelsSection() {
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -97,7 +108,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    alert(response.d);
+                    //
                     $("#divFeaturedArticles").html(response.d);
                 },
                 failure: function (errMsg) {
@@ -110,7 +121,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         /// IsUserAFollower ////
         function IsUserAFollower() {
 
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "userName": $.Storage.get("UserName"), "sport": queryString };
 
             $.ajax({
@@ -122,15 +134,16 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 success: function (response) {
 
                     if (response.d == true) {
-                        $("#LiteralIsFollowingMessage").text("You are following " + queryString);
+                        $("#LiteralIsFollowingMessage").text("You are following " + queryString.replace("%20", " "));
                         $("#DivFollow").hide();
                         $("#LinkButtonUnFollow").show();
-
                         $("#LinkButtonUnFollow").val("Click here to Un-follow");
 
                     }
                     else {
+                        $("#LiteralIsFollowingMessage").text("");
                         $("DivUnFollow").hide();
+                        queryString = queryString.replace("%20", " ");
                         $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
                     }
                     //handel link button Follow /unfollow
@@ -145,7 +158,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
 
         /// HandleSportCountIncrementing ////
         function HandleSportCountIncrementing() {
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "_sportName": queryString };
 
             $.ajax({
@@ -166,7 +180,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         /// GetNumberOfSportImpressions ////
         function GetNumberOfSportImpressions() {
 
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -177,7 +192,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 dataType: "json",
                 success: function (response) {
                     var count = response.d;
-                    $("#LabelSportPageViews").text(count + " Page Views for " + queryString);
+                    $("#LabelSportPageViews").text(count + " Page Views for " + queryString.replace("%20", " "));
                 },
                 failure: function (errMsg) {
                     $('#errorMessage').text(errMsg); //errorMessage is id of the div
@@ -188,7 +203,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         ///GetSportHierarchy()///
         function GetSportHierarchy() {
 
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -208,7 +224,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         }
         ///GetSportDefinition() ///
         function GetSportDefinition() {
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -229,7 +246,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         }
         /// EncodeSubNav() ///
         function EncodeSubNav() {
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "currentPage": "Main", "_sportName": queryString };
             $.ajax({
                 url: 'http://2bvision.com/kids2promobile/SporthomePageBuilder.asmx/EncodeSubNav',
@@ -239,7 +257,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 dataType: "json",
                 success: function (response) {
                     var response = response.d;
-                    alert(response);
+                   // alert(response);
                     $('#LiteralSubNav').html(response);
                 },
                 failure: function (errMsg) {
@@ -250,7 +268,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
 
         ///GetRecentArticelsSection()///
         function GetRecentArticelsSection() {
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -260,7 +279,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    alert(response.d);
+                   // 
                     $("#divFeaturedArticles").html(response.d);
                 },
                 failure: function (errMsg) {
@@ -286,6 +305,29 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 }
             });
         }
+        function GetRightAdver() {
+
+            $.ajax(
+{
+    type: "POST",
+    url: "http://2bvision.com/kids2promobile/AdvertisementManagerService.asmx/GetRightAdvertisingColumn",
+    data: "{}",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (response, status) {
+
+        $.Storage.get("UserName");
+        var asd = $("#divRightAdds");
+        $("#divRightAdds").html(response.d);
+
+    },
+    failure: function (msg) {
+        alert(msg);
+    }
+}
+	);
+        }	
         /*HandleSportCountIncrementing(),IsUserAFollower(),GetNumberOfSportImpressions(),GetSportHierarchy(),GetSportDefinition(),GetRecentArticelsSection(),GetMediumRectangle()  */
     </script>
     <script type="text/javascript">
@@ -293,7 +335,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         /// Handle User UnFollowing ////
         function HandleUserUnFollow() {
 
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "userName": $.Storage.get("UserName"), "_sportName": queryString };
 
             $.ajax({
@@ -303,8 +346,9 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    alert(reponse.d)
+                    //  alert(reponse.d)
                     var Response = reponse.d;
+                    queryString = queryString.replace("%20", " ");
                     $("#LiteralIsFollowingMessage").text("You are no longer following " + queryString);
 
                     $("#LinkButtonUnfollow").hide();
@@ -323,7 +367,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         /// Handle User Following ////
         function HandleUserFollowing() {
 
-            queryString = getUrlVars()["SportName"];
+            queryString = getUrlVars()["SportName"];queryString = queryString.replace("%20", " ");
+            queryString = queryString.replace("%20", " ");
             var data = { "userName": $.Storage.get("UserName"), "_sportName": queryString };
 
             $.ajax({
@@ -333,7 +378,7 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-
+                    $("#LiteralIsFollowingMessage").text("");
                     $("#ASPxLabelSportHeader").text("You are now following. You will receive a notification whenever any content, article                          or video is published about this sport " + queryString);
                     $("#DivUnFollow").show();
                     $("#LinkButtonUnfollow").val('If you would like to stop following this  Home Page, click here');
@@ -349,31 +394,29 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
     </script>
     <!--"HandleSportCountIncrementing(),IsUserAFollower(),GetNumberOfSportImpressions(),GetSportHierarchy(),GetSportDefinition(),GetRecentArticelsSection(),EncodeSubNav()"-->
 </head>
-<body onload="HandleSportCountIncrementing(),IsUserAFollower(),GetNumberOfSportImpressions(),GetSportHierarchy(),GetSportDefinition(),GetRecentArticelsSection(),EncodeSubNav()">
+<body onload="HandleSportCountIncrementing(),IsUserAFollower(),GetNumberOfSportImpressions(),GetSportHierarchy(),GetSportDefinition(),GetRecentArticelsSection(),EncodeSubNav(),GetRightAdver()">
     <div id="wraper" class="">
         <header>
           <nav>
-              <ul id="" class="clearfix">
+              <ul class="clearfix">
                   <li>
-                      <a href="userprofile.html" title="home" target="_self">Home</a>
+                      <a href="SportsDefinitions.html" target="_self" title="Sports" >Sports</a>
                   </li>
                   <li>
-                      <a href="static/mediaKit.html" title="mediakit" target="_self">Media Kit</a>
+                      <a href="createArticle.html" title="Articles" target="_self">Articles</a>
                   </li>
                   <li>
-                      <a class="ui-link" href="static/Faq.html" title="faq" target="_self">FAQ</a>
+                      <a class="ui-link" href="CreateTeam.html" title="Teams" target="_self">Teams</a>
                   </li>
+                  
                   <li>
-                      <a class="ui-link" href="#.html" title="feedback" target="#">Feedback</a>
-                  </li>
-                  <li>
-                      <a class="ui-link" href="static/ContactUs.html" title="contactus" target="_self">Contact Us</a>
+                      <a class="ui-link" href="CreateFanClub.html" title="Fanclubs" target="_self">Fanclubs</a>
                   </li>
               </ul>
           </nav>
       </header>
-      <div id="divLeaderBoard">
-       </div>
+        <div id="divLeaderBoard">
+        </div>
         <!-- header ends -->
         <!-- container starts-->
         <div class="contetns clearfix">
@@ -416,11 +459,12 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 <div class="clearfix">
                 </div>
                 <div id="DivUnFollow">
-                    <label id="LiteralIsFollowingMessage">
-                        <a id="LinkButtonUnfollow" >
-                            <label id="LabelStopFollowingMessage" >
+                    <label id="LiteralIsFollowingMessage"> </label>
+                        <a id="LinkButtonUnfollow" onclick="HandleUserUnFollow()">
+                            <label id="LabelStopFollowingMessage">
                             </label>
                         </a>
+                       
                 </div>
                 <br />
                 <label id="LabelSportPageViews">
@@ -431,8 +475,8 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
                 <br />
             </div>
             <!-- advertisement area starts-->
-            <div class="contentRight fRight">
-                fdfplfpogjj</div>
+            <div id="divRightAdds" class="contentRight fRight">
+                </div>
             <!-- advertisement area ends-->
         </div>
         <div class="shareIcons">
@@ -456,15 +500,15 @@ $('#ListKewords').append('<li><a style="color:Black" href="ViewKeyword.html?Keyw
         <!-- footer starts -->
         <div id="footerWrap">
             <footer>
-              <a href="userprofile.html" title="home" target="_self">Home</a>
+              <a href="index.html" title="home" target="_self">Home</a>
               <a href="static/Affiliates.html" title="Affiliates" target="_self">Affiliates</a>
               <a href= "static/CollegiateRecruiting.html"title="Collegiate Recruiting" target="_self">Collegiate Recruiting</a>
-              <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
-              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>
+           <!--   <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
+              <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>-->
               <a href="static/Education.html" title="Education & Sports" target="_self">Education & Sports</a>
               <a href= "static/K2psZOO.html"title="K2psZOO" target="_self">K2psZOO</a>
-              <a href= "static/NewsAndEvents..html"title="News & Events" target="_self">News & Events</a>
-              <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>
+              <a href= "static/NewsAndEvents.html"title="News & Events" target="_self">News & Events</a>
+           <!--   <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>-->
               <a href="static/SportsICandy.html" title="SportsiCandy" target="_self"><i>SportsiCandy</i></a>
               <a href="static/TechServices.html" title="Tech & Business Services" target="_self">Tech & Business Services</a>
               <a href= "static/Write4Kids2ProSports.html"title="Write4K2PS" target="_self">Write4K2PS</a>

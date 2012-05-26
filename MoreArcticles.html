@@ -16,7 +16,13 @@
     <script language="javascript" type="text/javascript">
 
         $(document).ready(function () {
-		
+            var online = navigator.onLine;    // Detecting the internet connection
+            if (online) {
+                // do your stuff
+            } else {
+                alert('You\'re Offline now...');
+                return false;
+            }
 		function getUrlVars() {
             var vars = [], hash;
             var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -139,23 +145,21 @@ function GetSportArticles(){
 <body>
     <div>
         <div id="wraper">
-            <header>
+  <header>
           <nav>
-              <ul id="" class="clearfix">
+              <ul class="clearfix">
                   <li>
-                      <a href="userprofile.html" title="home" target="_self">Home</a>
+                      <a href="SportsDefinitions.html" target="_self" title="Sports" >Sports</a>
                   </li>
                   <li>
-                      <a href="static/mediaKit.html" title="mediakit" target="_self">Media Kit</a>
+                      <a href="createArticle.html" title="Articles" target="_self">Articles</a>
                   </li>
                   <li>
-                      <a class="ui-link" href="static/Faq.html" title="faq" target="_self">FAQ</a>
+                      <a class="ui-link" href="CreateTeam.html" title="Teams" target="_self">Teams</a>
                   </li>
+                  
                   <li>
-                      <a class="ui-link" href="#.html" title="feedback" target="#">Feedback</a>
-                  </li>
-                  <li>
-                      <a class="ui-link" href="static/ContactUs.html" title="contactus" target="_self">Contact Us</a>
+                      <a class="ui-link" href="CreateFanClub.html" title="Fanclubs" target="_self">Fanclubs</a>
                   </li>
               </ul>
           </nav>
@@ -200,21 +204,21 @@ function GetSportArticles(){
                 <!-- left area ends-->
                 <!-- advertisement area starts-->
                 <div class="contentRight fRight">
-                    fdfplfpogjj</div>
+                    </div>
                 <!-- advertisement area ends-->
             </div>
             <!-- container ends-->
             <!-- footer starts -->
             <div id="footerWrap">
                 <footer>
-              <a href="userprofile.html" title="home" target="_self">Home</a>
+              <a href="index.html" title="home" target="_self">Home</a>
               <a href="static/Affiliates.html" title="Affiliates" target="_self">Affiliates</a>
               <a href= "static/CollegiateRecruiting.html"title="Collegiate Recruiting" target="_self">Collegiate Recruiting</a>
               <a href="#.html" title="Philanthropy" target="#">Philanthropy</a>
               <a href="#.html" title="Disability Sports" target="#">Disability Sports</a>
               <a href="static/Education.html" title="Education & Sports" target="_self">Education & Sports</a>
               <a href= "static/K2psZOO.html"title="K2psZOO" target="_self">K2psZOO</a>
-              <a href= "static/NewsAndEvents..html"title="News & Events" target="_self">News & Events</a>
+              <a href= "static/NewsAndEvents.html"title="News & Events" target="_self">News & Events</a>
               <a href="#.html" title="Sports Health & Fitness" target="_self">Sports Health & Fitness</a>
               <a href="static/SportsICandy.html" title="SportsiCandy" target="_self"><i>SportsiCandy</i></a>
               <a href="static/TechServices.html" title="Tech & Business Services" target="_self">Tech & Business Services</a>
