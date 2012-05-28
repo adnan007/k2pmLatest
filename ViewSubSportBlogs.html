@@ -14,6 +14,13 @@
     <script type="text/javascript" src="js/domtab.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            if ($.Storage.get("UserName") != null && $.Storage.get("UserName") == 'guest')
+            { $('#ButtonPostBlog').attr('disabled', 'disabled'); }
+            else if ($.Storage.get("UserName") == null) { 
+            window.location.href='login.html'
+            }
+
+            $('#btnSubmit').attr('disabled', 'disabled');
             var online = navigator.onLine;    // Detecting the internet connection
             if (online) {
                 // do your stuff
@@ -356,11 +363,11 @@ function GetRightAdver() {
                 success: function (response) {
                     //alert(reponse.d)
                     var Response = reponse.d;
+                    var Response = response.d;
                     $("#LiteralIsFollowingMessage").text("You are no longer following " + queryString);
-
                     $("#LinkButtonUnfollow").hide();
-                    $("#DivFollow").hide();
-                    //handel link button Follow /unfollow
+                    $("#DivFollow").show();
+                    $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
                 },
                 failure: function (errMsg) {
                     //errorMessage is id of the div
@@ -403,18 +410,15 @@ function GetRightAdver() {
                   contentType: "application/json; charset=utf-8",
                   dataType: "json",
                   success: function (response) {
-                      //
-                      //alert(queryString);
-                      $("#LiteralIsFollowingMessage").text("");
-                      $("#ASPxLabelSportHeader").text("You are now following. You will receive a notification whenever any content, article                          or video is published about this sport " + queryString);
+                      queryString = queryString.replace("%20", " ");
+                      $("#ASPxLabelSportHeader").text("You are now following. You will receive a notification whenever any content, article or video is published about this sport " + queryString);
                       $("#DivUnFollow").show();
-                      $("#LinkButtonUnfollow").val('If you would like to stop following this  Home Page, click here');
+                      $("#LinkButtonUnfollow").html('If you would like to stop following this  Home Page, click here');
                       $("#LinkButtonUnfollow").show();
                       $("#DivFollow").hide();
-                      //handel link button Follow /unfollow
                   },
                   failure: function (errMsg) {
-                      //errorMessage is id of the div
+                   
                   }
               });
           }
@@ -491,7 +495,7 @@ function GetRightAdver() {
                     </div>
                     <div class="clearfix">
                     </div>
-                    <div id="LiteralSubNav">
+                    <div id="LiteralSubNav" class="sportSubNav fLeft !important">
                     </div>
                 </div>
                 <br />
@@ -520,7 +524,7 @@ function GetRightAdver() {
                                         <br />
                                         <textarea id="TextBoxBlogEntry"  cols="27" rows="8" ></textarea>
                                         <br /> <br />
-                                        <input id="ButtonPostBlog" type="button" onclick="CreateBlogEntry()" value="Post" />
+                                        <input id="ButtonPostBlog" type="submit" onclick="CreateBlogEntry()" value="Post" />
                                     </div>
                                       <div class="clearfix"></div>
                                 </div>

@@ -32,7 +32,7 @@
             { window.location.href = "login.html"; }
             else if ($.Storage.get("UserName") == "guest") {
                 $('#btnSubmit').attr('disabled', 'disabled');
-
+                $('#btnAddChild').attr('disabled', 'disabled');
            
             }
             $("#lblmessage").text("");
@@ -721,8 +721,19 @@ function AddChild() {
       </header>
             <!-- header ends -->
             <!-- container starts-->
-            <div class="contetns clearfix">
-                <!-- myaccount starts -->
+           
+            <div class="innermenu">
+       <ul class="clearfix">
+        	<li>
+              <a href="index.html" title="home" target="_self">Home</a>
+          </li>
+          <li class="sep"></li>
+          <li>
+              <a href="userprofile.html" title="profile" target="_self">Profile</a>
+          </li>
+          </ul>
+       </div>	
+            <div class="contetns clearfix">     <!-- myaccount starts -->
                 <div class="myAccBG">
                     <div class="myaccHeading">
                         Welcome to the My Account Page
@@ -1094,7 +1105,7 @@ function AddChild() {
                         your child and click 'Add Child' below to get started.</p>
                     <div class="set">
                         <input type="text" id="TextBoxChildUserName" style="width: 200px;" />
-                        <input type="button" value="Add Child" onclick="AddChild()" />
+                        <input type="button" id="btnAddChild" value="Add Child" onclick="AddChild()" />
                         <br />
                         <div class="errorLogin">
                         

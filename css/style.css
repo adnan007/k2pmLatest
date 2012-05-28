@@ -58,6 +58,7 @@ a:hover {
     text-decoration: none;
 }
 
+/* clear fix */
 .clearfix:after {
     clear: both;
     content: " ";
@@ -75,6 +76,7 @@ a:hover {
 * html .clearfix {
     height: 1%;
 }
+/* ----- end ------ */
 .clear {
     clear: both;
 }
@@ -427,7 +429,7 @@ nav li:hover { background:#6f0505; height:53px;}
 .loginWrap label { width:73px;  
 float:left; font-weight:bold; color:#333; font-size: 11px; }
 .loginArea table td{ padding:0 2px; }
-input[type="submit"], input[type="button"], .btn {border:1px solid #00531b; color:#ffffff; padding:5px 10px; font-weight:bold; background:url(../images/bg_top.gif) repeat-x 0 -12px; }
+input[type="submit"], input[type="button"], .btn {border:1px solid #00531b; color:#ffffff; padding:5px 10px; font-weight:normal; background:url(../images/bg_top.gif) repeat-x 0 -12px; }
 .loginWrap input[type="text"]{ border:1px solid #cccccc; font-size:11px; padding:2px; width:177px; }
 .loginWrap .inputBox, select { border:1px solid #cccccc; font-size:11px; padding:2px; width:177px; margin:0 0 5px 0 }
 .loginWrap input[type="password"] {  border:1px solid #cccccc; font-size:11px; padding:2px; width:177px; }
@@ -460,9 +462,9 @@ input[type="submit"], input[type="button"], .btn {border:1px solid #00531b; colo
 	font-size:0.9em;
 	color:#000000;	
 }
-.sportSubNav { margin-bottom: 15px; width: 20%; }
+.sportSubNav { margin-bottom: 10px; width: 49%; }
 .sportSubNav a{ background:#A71930; width: 82%; color:#ffffff; display: block;
-    float: left; font-size: 11px;  padding: 2%; text-decoration: none; text-transform: uppercase; border:2px  solid #000000; }
+    float: left; font-size: 11px;  padding: 2%; text-decoration: none;  border:1px  solid #000000; }
 .sportSubNav a:hover { background:#721120; }
 .sportSubNav a span{ display: block;  text-align:center; font-weight: bold; }
 
@@ -474,7 +476,7 @@ input[type="submit"], input[type="button"], .btn {border:1px solid #00531b; colo
 }
 
 .contentLeft { width:75%;}
-.contentRight { width:22%;  height:500px;}
+.contentRight { width:22%; }
 
 .para{
 	border: 1px solid #0033FF;

@@ -49,7 +49,7 @@
             $.ajax({
                 url: 'http://2bvision.com/kids2promobile/SportsDefinitionsColleges.asmx/GetCollegesSports',
                 type: 'POST',
-                data: "{'HasGenderAge': '" + false + "','IsCountry':'" + false + "' ,'IsCollegeInt':'" + false + "','IsCollegeUSA':'" + false + "','MajorSport':'Special Olympics','MajorSport2':'High School'}",
+                data: "{'HasGenderAge': '" + false + "','IsCountry':'" + false + "' ,'IsCollegeInt':'" + false + "','IsCollegeUSA':'" + true + "','MajorSport':'Special Olympics','MajorSport2':'High School'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {

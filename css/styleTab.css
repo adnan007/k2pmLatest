@@ -8,8 +8,8 @@ body { margin:0; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
 
 table, td { border-collapse:collapse; }
 ul, li { list-style-type:none; }
-a, a:visited { color:#00aaff; text-decoration:none; }
-a:hover { color:#00aaff; text-decoration:underline; }
+a, a:visited {  text-decoration:none; }
+a:hover {  text-decoration:underline; }
 /* ------- end --------- */
 
 /* clearing floats */
@@ -72,7 +72,7 @@ ul.domtabs {float:left; width:50%;	}
 ul.domtabs li {	float:left;	padding:0; margin:0 5px 0 0; display:block; color:#333333; height:30px; line-height:30px; text-align:center;  }
 ul.domtabs a:link, ul.domtabs a:visited, ul.domtabs a:active, ul.domtabs a:hover { display:block; color:#777777; height:26px; line-height:26px; text-align:center; font-weight:bold; padding:0 15px; text-decoration:none; border-left:1px solid #999; border-top:1px solid #999; border-right:1px solid #999;  background:#eee url(../images/tab-bg.jpg) repeat-x left top; }
 ul.domtabs a:hover{ background:#eee url(../images/tab-bg.jpg) repeat-x left top; color:#444444; }
-div.domtab div.hideIt { clear:both; width:auto; padding:15px 0; background:#f6f6f6; }
+div.domtab div.hideIt { clear:both; width:36%; padding:15px 0; background:#f6f6f6; }
 ul.domtabs li.active a:link, ul.domtabs li.active a:visited, ul.domtabs li.active a:active, ul.domtabs li.active a:hover { background:#f6f6f6; height:29px; line-height:26px; color:#000000; border-left:1px solid #dddddd; border-top:1px solid #dddddd; border-right:1px solid #dddddd; background:url(../images/tab-bg-hover.jpg) repeat-x left top; }
 #domtabprintview{ float:right; padding-right:1em; text-align:right; }
 #domtabprintview a:link, #dom

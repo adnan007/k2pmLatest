@@ -106,19 +106,20 @@
 
                     if (response.d == true) {
                         queryString = queryString.replace("%20", " ");
-                        $("#LiteralIsFollowingMessage").text("You are following " + queryString);
-                        $("#DivFollow").hide();
                         $("#DivUnFollow").show();
+                        $("#LiteralIsFollowingMessage").text("You are following " + queryString);
+                        $("#DivFollow").hide();                     
                         $("#LinkButtonUnFollow").show();
-                        $("#LinkButtonUnFollow").text("Click here to Un-follow");
-                        
+                        $("#LinkButtonUnfollow").html('If you would like to stop following this  Home Page, click here');                        
                         $("#LinkButtonFollow").hide();
 
                     }
                     else {
                         $("DivUnFollow").hide();
                         queryString = queryString.replace("%20", " ");
-                        $("#LinkButtonFollow").text("Click Here to Follow " + queryString);
+                        $("#DivFollow").show();
+                        $("#LinkButtonFollow").show();
+                        $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
                     }
                     //handel link button Follow /unfollow
                 },
@@ -361,11 +362,11 @@
                 dataType: "json",
                 success: function (response) {
 
-                    var Response = reponse.d;
+                    var Response = response.d;
                     $("#LiteralIsFollowingMessage").text("You are no longer following " + queryString);
-
                     $("#LinkButtonUnfollow").hide();
-                    $("#DivFollow").hide();
+                    $("#DivFollow").show();
+                    $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
                     //handel link button Follow /unfollow
                 },
                 failure: function (errMsg) {
@@ -393,6 +394,7 @@
                     queryString = queryString.replace("%20", " ");
                     $("#ASPxLabelSportHeader").text("You are now following. You will receive a notification whenever any content, article or video is published about this sport " + queryString);
                     $("#DivUnFollow").show();
+                    $("#LiteralIsFollowingMessage").text("");
                     $("#LinkButtonUnfollow").html('If you would like to stop following this  Home Page, click here');
                     $("#LinkButtonUnfollow").show();
                     $("#DivFollow").hide();
@@ -433,10 +435,10 @@
             <div class="contentLeft fLeft">
                 <div class="innerwrapper">
                     <!-- contentLeft -->
-                    <h2>
+                    <h5>
                         <label id="ASPxLabelSportHeader">
                         </label>
-                    </h2>
+                    </h5>
                     <div id="divLiteralSportHierarchy">
                     </div>
                     <div id="LiteralSubNav">
@@ -473,9 +475,9 @@
                 </div>
                 <br />
                 <div id="DivFollow">
-                    <h2>
-                        Follow</h2>
-                    <input type="button" id="LinkButtonFollow" onclick="HandleUserFollowing()" />
+                    <h6>
+                        Follow</h6>
+                    <input type="button" id="LinkButtonFollow" name="LinkButtonFollow" onclick="HandleUserFollowing()" />
                 </div>
                 <br />
                 <div class="clearfix">
@@ -483,7 +485,7 @@
                 <div id="DivUnFollow">
                     <label id="LiteralIsFollowingMessage" >
                     </label>
-                    <span id="LinkButtonUnfollow" onclick="HandleUserUnFollow()">
+                    <span   id="LinkButtonUnfollow"  onclick="HandleUserUnFollow()">
                         <label id="LabelStopFollowingMessage">
                         </label>
                     </span>
