@@ -22,7 +22,7 @@
                 alert('You\'re Offline now...');
                 return false;
             }
-
+            $('#example').dataTable();
             function renderTable(result) {
                 var dtData = [];
                 $.each(result, function () {
@@ -34,12 +34,12 @@
                 });
                 $('#SportsGrid').dataTable({ //grid is the id of the table
                     'aaData': dtData,
-                    'bPaginate': true,
-                    'bInfo': true,
+                    'bLengthChange': false,
                     'bRetrieve': true,
-                    "sPaginationType": "full_numbers",
+		            'bFilter': true,
+		            'bSort': false,
+		            'bInfo': false
 
-                    'bFilter': true
 
                 });
             }

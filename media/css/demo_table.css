@@ -148,13 +148,16 @@ table.display {
 	 * then filling in the gaps with other borders.
 	 */
 }
-
+table.display
+{border: 2px solid black;}
 table.display thead th {
 	padding: 3px 18px 3px 10px;
-	border-bottom: 1px solid black;
-	font-weight: bold;
+	border: 1px solid black;
+	font-weight:normal;
+	color:White;
+	background:#A71930;
 	cursor: pointer;
-	* cursor: hand;
+	 *cursor: hand;
 }
 
 table.display tfoot th {
@@ -243,9 +246,11 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * td color
+ */
 tr.odd {
-	background-color: #E2E4FF;
+	background-color: #F0F0F0;
 }
 
 tr.even {

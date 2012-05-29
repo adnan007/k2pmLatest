@@ -36,11 +36,11 @@
 
                 $('#SpecialOlympicsGrid').dataTable({ //grid is the id of the table
                     'aaData': dtData,
-                    'bPaginate': true,
-                    'bInfo': true,
-					'bRetrieve':true,
-					"sPaginationType": "full_numbers",					
-                    'bFilter': true					
+                    'bLengthChange': false,
+                    'bRetrieve': true,
+                    'bFilter': true,
+                    'bSort': false,
+                    'bInfo': false			
                 }); 
    
             }

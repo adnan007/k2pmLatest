@@ -379,28 +379,7 @@
             }
 
         });
-        function GetRightAdver() {
-
-            $.ajax(
-{
-    type: "POST",
-    url: "http://2bvision.com/kids2promobile/AdvertisementManagerService.asmx/GetRightAdvertisingColumn",
-    data: "{}",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-
-    success: function (response, status) {
-
-        $.Storage.get("UserName");
-        var asd = $("#divRightAdds");
-        $("#divRightAdds").html(response.d);
-
-    },
-    failure: function (msg) {
-        alert(msg);
-    }
-});
-        }
+    
         function ShowCityText() {
             $("#DropDownListCity").hide();
             $("#HrefMyCity").hide();
@@ -468,7 +447,7 @@
 
     </script>
 </head>
-<body onload="GetRightAdver()">
+<body >
     <div>
         <div id="wraper">
             <header>
