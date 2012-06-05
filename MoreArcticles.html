@@ -1,17 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>MoreArticles</title>
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/png">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/png" />
     <meta content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"
-        name="viewport"  />
-    <link href="css/style.css" rel="stylesheet" type="text/css" />   
+        name="viewport" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
-    <link href="media/css/demo_table.css" rel="stylesheet" type="text/css"  />
-    <link href="media/css/demo_page.css" rel="stylesheet" type="text/css"  />
+    <link href="media/css/demo_table.css" rel="stylesheet" type="text/css" />
+    <link href="media/css/demo_page.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
-     <script type="text/javascript" src="js/jquery.jsonp-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.jsonp-2.1.3.min.js"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
 
@@ -23,40 +23,37 @@
                 alert('You\'re Offline now...');
                 return false;
             }
-		function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
+            function getUrlVars() {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++) {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+
             }
-            return vars;
+            if (getUrlVars()["Id"] != null) {
 
-        }
-				  if (getUrlVars()["Id"] != null)
-                    {
-                       
-                       $("#LabelMoreArticleHeading").Text = "Articles Written by "+ getUrlVars()["Id"];
-                    
-						GetUserArticles();
-                    }
-                    else if (getUrlVars()["Key"] != null)
-                    {
-                      
-                        $("#LabelMoreArticleHeading").Text = "Articles Written About " + getUrlVars()["Key"];
+                $("#LabelMoreArticleHeading").Text = "Articles Written by " + getUrlVars()["Id"];
 
-                      	GetKeywordArticles();
-                    }
-                    else if (getUrlVars()["Sport"] != null)
-                    {
-                       
-                       $("#LabelMoreArticleHeading").Text = "Articles Written About " + getUrlVars()["Sport"];
+                GetUserArticles();
+            }
+            else if (getUrlVars()["Key"] != null) {
 
-                        GetSportArticles();
-                    }		
-		
-		
+                $("#LabelMoreArticleHeading").Text = "Articles Written About " + getUrlVars()["Key"];
+
+                GetKeywordArticles();
+            }
+            else if (getUrlVars()["Sport"] != null) {
+
+                $("#LabelMoreArticleHeading").Text = "Articles Written About " + getUrlVars()["Sport"];
+
+                GetSportArticles();
+            }
+
+
             function renderTable(result) {
                 var dtData = [];
                 $.each(result, function () {
@@ -64,79 +61,84 @@
 					 "<p><span>Written By:</span> " + this.UserName + "</p>",
                      "<p><span>Date:</span>" + this.DateTime + "</p>",
                       this.Preview,
-					  "<a href=ViewArticle.html?Id=" + this.ArticleID + ">View Full Article</a>"                     
-					
-					
+					  "<a href=ViewArticle.html?Id=" + this.ArticleID + ">View Full Article</a>"
+
+
                         ]);
                 });
 
                 $('#ArticleGrid').dataTable({ //grid is the id of the table
                     'aaData': dtData,
-					 'bDestroy': true                 
+                    'bDestroy': true,
+                    'bLengthChange': false,
+                    'bRetrieve': true,
+                    'bFilter': true,
+                    'bSort': false,
+                    'bInfo': false
 
                 });
-               
+
             }
-function GetUserArticles(){
-	var sportId=getUrlVars()["Id"];
-	var data ={"UserName":sportId};
-            $.ajax({
-                url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetUserArticles',
-                type: 'POST',				
-                data:JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    
-                    renderTable(response.d);
-                },
-                failure: function (errMsg) {
-                    $('#errorMessage').text(errMsg); //errorMessage is id of the div
-                }
-            });
+            function GetUserArticles() {
+                var sportId = getUrlVars()["Id"];
+                var data = { "UserName": sportId };
+                $.ajax({
+                    url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetUserArticles',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
 
-		}
-		
-function GetKeywordArticles(){
-	var Keyword=getUrlVars()["Key"];	
-	var data ={"Keyword":Keyword};
-            $.ajax({
-                url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetKeywordArticles',
-                type: 'POST',
-                data:JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                  
-                    renderTable(response.d);
-                },
-                failure: function (errMsg) {
-                    $('#errorMessage').text(errMsg); //errorMessage is id of the div
-                }
-            });
+                        renderTable(response.d);
+                    },
+                    failure: function (errMsg) {
+                        $('#errorMessage').text(errMsg); //errorMessage is id of the div
+                    }
+                });
 
-		}		
-		
-function GetSportArticles(){
-	var MinorSportName=getUrlVars()["Sport"];	
-	var data ={"MinorSportName":MinorSportName};
-            $.ajax({
-                url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetSportArticles',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                  
-                    renderTable(response.d);
-                },
-                failure: function (errMsg) {
-                    $('#errorMessage').text(errMsg); //errorMessage is id of the div
-                }
-            });
+            }
 
-		}		
-		
+            function GetKeywordArticles() {
+                var Keyword = getUrlVars()["Key"];
+                var data = { "Keyword": Keyword };
+                $.ajax({
+                    url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetKeywordArticles',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        renderTable(response.d);
+                    },
+                    failure: function (errMsg) {
+                        $('#errorMessage').text(errMsg); //errorMessage is id of the div
+                    }
+                });
+
+            }
+
+            function GetSportArticles() {
+                var MinorSportName = getUrlVars()["Sport"];
+                var data = { "MinorSportName": MinorSportName };
+                $.ajax({
+                    url: 'http://2bvision.com/kids2promobile/ViewArticle.asmx/GetSportArticles',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        renderTable(response.d);
+                    },
+                    failure: function (errMsg) {
+                        $('#errorMessage').text(errMsg); //errorMessage is id of the div
+                    }
+                });
+
+            }
+
         });
 		
 		
@@ -145,7 +147,7 @@ function GetSportArticles(){
 <body>
     <div>
         <div id="wraper">
-  <header>
+            <header>
           <nav>
               <ul class="clearfix">
                   <li>
@@ -170,41 +172,45 @@ function GetSportArticles(){
                 <!-- left area starts-->
                 <div class="contentLeft fLeft">
                     <div class="innerwrapper">
-                       <h2>
-    					<Label ID="LabelMoreArticleHeading" ></Label>    
-						</h2>                  
+                        <h2>
+                            <label id="LabelMoreArticleHeading">
+                            </label>
+                        </h2>
                     </div>
-                    <br />                   
-                  <table id="ArticleGrid" >
+                    <br />
+                    <div class="clearfix"></div>
+                    <table id="ArticleGrid">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th></th>                                                              
-                                <th></th>
-                                <th></th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td colspan="5">
-                                   <img src='images/ajax-loader.gif'/>
+                                    <img src='images/ajax-loader.gif' />
                                 </td>
                             </tr>
                         </tbody>
-                    </table>                            
+                    </table>
                     <div id="errorMessage">
-                       
                     </div>
                     <br />
                     <br />
                     <br />
                     <br />
-                   
                 </div>
                 <!-- left area ends-->
                 <!-- advertisement area starts-->
                 <div class="contentRight fRight">
-                    </div>
+                </div>
                 <!-- advertisement area ends-->
             </div>
             <!-- container ends-->

@@ -40,7 +40,7 @@
             var User = $.Storage.get("UserName");
 
             if (User != null) {
-                queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+                queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
 
                 var data = { "sportName": queryString };
 
@@ -70,7 +70,7 @@
         }
         /// ///
         function GetRecentArticelsSection() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -93,7 +93,7 @@
         /// IsUserAFollower ////
         function IsUserAFollower() {
 
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "userName": $.Storage.get("UserName"), "sport": queryString };
 
             $.ajax({
@@ -105,7 +105,7 @@
                 success: function (response) {
 
                     if (response.d == true) {
-                        queryString = queryString.replace("%20", " ");
+                        queryString = queryString.replace('%20', '  ');
                         $("#DivUnFollow").show();
                         $("#LiteralIsFollowingMessage").text("You are following " + queryString);
                         $("#DivFollow").hide();                     
@@ -116,7 +116,7 @@
                     }
                     else {
                         $("DivUnFollow").hide();
-                        queryString = queryString.replace("%20", " ");
+                        queryString = queryString.replace('%20', '  ');
                         $("#DivFollow").show();
                         $("#LinkButtonFollow").show();
                         $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
@@ -133,7 +133,7 @@
 
         /// HandleSportCountIncrementing ////
         function HandleSportCountIncrementing() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', ' ');
             var data = { "_sportName": queryString };
 
             $.ajax({
@@ -154,7 +154,7 @@
         /// GetNumberOfSportImpressions ////
         function GetNumberOfSportImpressions() {
 
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', ' ');
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -165,6 +165,7 @@
                 dataType: "json",
                 success: function (response) {
                     var count = response.d;
+                    queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', ' ');
                     $("#LabelSportPageViews").text(count + " Page Views for " + queryString);
                 },
                 failure: function (errMsg) {
@@ -176,7 +177,7 @@
         ///GetSportHierarchy()///
         function GetSportHierarchy() {
 
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', ' ');
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -196,7 +197,7 @@
         }
         ///GetSportDefinition() ///
         function GetSportDefinition() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -217,7 +218,7 @@
         }
         /// EncodeSubNav() ///
         function EncodeSubNav() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "currentPage": "Main", "_sportName": queryString };
             $.ajax({
                 url: 'http://2bvision.com/kids2promobile/SporthomePageBuilder.asmx/EncodeSubNav',
@@ -238,7 +239,7 @@
 
         ///GetRecentArticelsSection()///
         function GetRecentArticelsSection() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "sportName": queryString };
 
             $.ajax({
@@ -276,7 +277,7 @@
         }
         /// GetMediumRectangle() ///
         function GetRecentVideoUrl() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "_sportName": queryString };
             $.ajax({
                 url: 'http://2bvision.com/kids2promobile/SporthomePageBuilder.asmx/GetRecentVideoUrl',
@@ -301,7 +302,7 @@
         }
         /// GetMediumRectangle() ///
         function GetNoVideosMessage() {
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "_sportName": queryString };
             $.ajax({
                 url: 'http://2bvision.com/kids2promobile/SporthomePageBuilder.asmx/GetNoVideosMessage',
@@ -351,7 +352,7 @@
         /// Handle User UnFollowing ////
         function HandleUserUnFollow() {
 
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "userName": $.Storage.get("UserName"), "_sportName": queryString };
 
             $.ajax({
@@ -363,9 +364,11 @@
                 success: function (response) {
 
                     var Response = response.d;
+                    queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
                     $("#LiteralIsFollowingMessage").text("You are no longer following " + queryString);
                     $("#LinkButtonUnfollow").hide();
                     $("#DivFollow").show();
+                    queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
                     $("#LinkButtonFollow").val("Click Here to Follow " + queryString);
                     //handel link button Follow /unfollow
                 },
@@ -381,7 +384,7 @@
         /// Handle User Following ////
         function HandleUserFollowing() {
 
-            queryString = getUrlVars()["SportName"]; queryString = queryString.replace("%20", " ");
+            queryString = getUrlVars()["SportName"]; queryString = queryString.replace('%20', '  ');
             var data = { "userName": $.Storage.get("UserName"), "_sportName": queryString };
 
             $.ajax({
@@ -391,7 +394,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    queryString = queryString.replace("%20", " ");
+                    queryString = queryString.replace('%20', '  ');
                     $("#ASPxLabelSportHeader").text("You are now following. You will receive a notification whenever any content, article or video is published about this sport " + queryString);
                     $("#DivUnFollow").show();
                     $("#LiteralIsFollowingMessage").text("");

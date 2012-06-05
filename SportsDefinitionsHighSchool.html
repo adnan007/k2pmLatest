@@ -1,19 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>SportsDefinitionsCountries</title>
+    <title>SportsDefinitionsHighSchool</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/png" />
     <meta content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"
         name="viewport" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-   
     <link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
     <link href="media/css/demo_table.css" rel="stylesheet" type="text/css" />
+    <link href="media/css/demo_page.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
-        var oTable;
+
         $(document).ready(function () {
             var online = navigator.onLine;    // Detecting the internet connection
             if (online) {
@@ -22,24 +22,16 @@
                 alert('You\'re Offline now...');
                 return false;
             }
-
-            $("#SportsGrid tbody tr").live('click', function () {
-                var firstCellText = $("td:eq(0)", this).text();
-                window.location.href = 'ViewSubSport.html?SportName=' + firstCellText;
-            });
+            $('#example').dataTable();
             function renderTable(result) {
                 var dtData = [];
                 $.each(result, function () {
                     dtData.push([
-                           this.Name,
-                           this.Country
+                          this.Name,
+                           this.State
 
                         ]);
-
-
-
                 });
-
                 $('#SportsGrid').dataTable({ //grid is the id of the table
                     'aaData': dtData,
                     'bLengthChange': false,
@@ -47,17 +39,19 @@
                     'bFilter': true,
                     'bSort': false,
                     'bInfo': false
+
+
                 });
             }
 
             $.ajax({
-                url: 'http://2bvision.com/kids2promobile/SportsByCountry.asmx/GetSportsByCountry',
+                url: 'http://2bvision.com/kids2promobile/SourceSportDataGrid.asmx/GetSportHighSchool',
                 type: 'POST',
-                data: "{'MajorSport':'Countries','MajorSport2':'High School'}",
+                data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    //
+
                     renderTable(response.d);
                 },
                 failure: function (errMsg) {
@@ -65,19 +59,21 @@
                 }
             });
 
-
         });
-        
-          
-      
+        $(document).ready(function () {
+            $("#SportsGrid tbody tr").live('click', function () {
+                var firstCellText = $("td:eq(0)", this).text();
+                window.location.href = 'ViewSubSport.html?SportName=' + firstCellText;
+            });
+        });
 
+       
+		
     </script>
-   
 </head>
 <body>
-    <div>
-        <div id="wraper">
-         <header>
+    <div id="wraper">
+     <header>
           <nav>
               <ul class="clearfix">
                   <li>
@@ -96,42 +92,32 @@
               </ul>
           </nav>
       </header>
-            <!-- header ends -->
-            <!-- container starts-->
-            <div class="contetns clearfix">
-                <!-- left area starts-->
-                <div class="contentLeft fLeft">
-                    <div class="innerwrapper">
-                        <!-- contentLeft -->
-                       <div class="clear">
-                           
-                        </div>
-                       
-                       <div style="padding-left: 50px">
-                            <table id="list4">
-                            </table>
-                        </div>
-                      <div id="pager" style="padding-left: 50px">
-                        </div>
-                    </div>
-                    <br />
+       <!-- header ends -->
+        <!-- container starts-->
+        <div class="contetns clearfix">
+            <!-- left area starts-->
+            <div class="contentLeft fLeft">
+                <div class="innerwrapper">
+                    <!-- contentLeft -->
+                    
+                   
                     <div class="clearfix">
                         <div class="sportSubNav fLeft">
-                            <a href="SportsDefinitions.html" target="_self"><span>General Sports</span> </a>
+                            <a href="SportsDefinitions.html"><span >General Sports</span> </a>
                         </div>
                         <div class="sportSubNav fLeft">
-                            <a href="SportsDefinitionsSpecialOlympics.html" target="_self"><span>Special Olympics</span> </a>
+                            <a href="SportsDefinitionsSpecialOlympics.html"><span>Special Olympics</span> </a>
                         </div>
                         <div class="sportSubNav fLeft">
-                            <a href="SportsDefinitionsGenderId.html" target="_self"><span>Sports by Gender/ID</span> </a>
+                            <a href="SportsDefinitionsGenderId.html"><span>Sports by Gender/ID</span> </a>
                         </div>
                         <div class="sportSubNav fLeft">
-                            <a href="SportsDefinitionsCountries.html" target="_self"><span>Sports by Country</span> </a>
+                            <a href="SportsDefinitionsCountries.html"><span>Sports by Country</span> </a>
                         </div>
                         <div class="sportSubNav fLeft">
-                           <a href="SportsDefinitionsColleges.html" target="_self" ><span>College/University Sports</span> </a>
+                            <a href="SportsDefinitionsColleges.html" target="_self" ><span>College/University Sports</span> </a>
                         </div>
-                          <div class="sportSubNav fLeft">
+                         <div class="sportSubNav fLeft">
                             <a href="SportsDefinitionsCollegesInt.html" target="_self" ><span>International College/University Sports</span> </a>
                         </div>
                          <div class="sportSubNav fLeft">
@@ -140,55 +126,37 @@
                          <div class="sportSubNav fLeft">
                             <a href="SportsDefinitionOlympics.html" target="_self" ><span>Olympics/Paralympics</span> </a>
                         </div>
+                        
+
                     </div>
-                
-                
-               <br />
-                    <table id="SportsGrid" class="display">
-                        <thead>
-                            <tr>
-                                <th style="width:80px;text-align:left;">
-                                    Name
-                                </th>
-                                <th style="width:80px;text-align:left;">
-                                    Country
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5">
-                                    <img src='images/ajax-loader.gif'/>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="errorMessage">
-                       
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-              <!--  <div class="note">
-                    <p>
-                        The definitions and related features have been supplied by our research team and
-                        contributing sources. If you would like to contribute additional content to those
-                        features, we welcome your comments. You may also add your definition to our existing
-                        English interpretations. If you would like to suggest a new sport home page, including
-                        sport category, sport name, team, personalized sport home pages, gender, age, definitions,
-                        links, high school, college or universities; identification to inclusion of their
-                        sport home pages and any keywords associated with those sports, please <a href="SubmitRequest.aspx">
-                            Click Here to Submit Your Request. </a>All of these options can be submitted
-                        in your languages of choice.
-                    </p>
-                </div>-->
-            </div>
-            <!-- left area ends-->
-            <!-- advertisement area starts-->
-            <div class="contentRight fRight">
                 </div>
-            <!-- advertisement area ends-->
+                <br />
+                <table id="SportsGrid" class="display">
+                    <thead>
+                        <tr>
+                            <th style="width:80px;">
+                                Name
+                            </th>
+                            <th style="width:80px;">
+                                State
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                <img src='images/ajax-loader.gif' />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="errorMessage">
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+              </div>
         </div>
         <!-- container ends-->
         <!-- footer starts -->
